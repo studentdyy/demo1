@@ -2,14 +2,10 @@ package com.example.demo.base.config;
 
 import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
-import com.baomidou.mybatisplus.core.metadata.TableInfo;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
-import com.wtkj.assist.base.utils.WebTool;
-import com.wtkj.assist.entity.AskRecord;
-import com.wtkj.assist.entity.InquestRecord;
-import com.wtkj.assist.entity.SceneRecord;
-import com.wtkj.assist.entity.SysUser;
+import com.example.demo.base.utils.WebTool;
+import com.example.demo.entity.SysUser;
 import org.apache.ibatis.reflection.MetaObject;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -59,19 +55,9 @@ public class MyBatisPlusConfig implements MetaObjectHandler {
     // 插入自动填充
     @Override
     public void insertFill(MetaObject metaObject) {
-        Long userId = null;
-        String fullName = "系统";
-        String deptCode = null;
-        Long deptId = null;
-        String userPosition = null;
         SysUser currentUser = WebTool.getCurrentUser();
-        if (currentUser != null) {
-            userId = currentUser.getUserId();
-            fullName = currentUser.getFullName();
-            deptCode = currentUser.getDeptCode();
-            deptId = currentUser.getDeptId();
-            userPosition = currentUser.getPosition();
-        }
+        Long userId = currentUser.getUserId();
+        String fullName = currentUser.getFullName();
         this.strictInsertFill(metaObject, "createUserId", Long.class, userId);
         this.strictInsertFill(metaObject, "createTime", LocalDateTime.class, LocalDateTime.now());
         this.strictInsertFill(metaObject, "createUserName", String.class, fullName);

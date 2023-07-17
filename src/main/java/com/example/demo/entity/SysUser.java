@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
 import lombok.NonNull;
 
 /**
@@ -13,6 +14,7 @@ import lombok.NonNull;
  * @version 0.1
  * @date 2023/7/17 15:56
  */
+@Data
 public class SysUser {
     @ApiModelProperty(value = "用户id")
     @TableId(value = "user_id")
